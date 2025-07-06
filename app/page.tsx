@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import bg from "@/assets/bg.png";
 import arrowDown from "@/assets/icons/arrow-down.svg"
+import rightAngleArrow from "@/assets/icons/right-angle-arrow.svg";
 import intro1 from "@/assets/intro/1.png";
 import intro2 from "@/assets/intro/2.png";
 import topRightWordBlur from "@/assets/intro/top-right-word-blur.png"
@@ -9,10 +10,18 @@ import bottomLeftAreaBlur from "@/assets/intro/bottom-left-area-blur.png";
 import resultsTitleBlur from "@/assets/results/blur.png";
 import rightAngle from "@/assets/icons/right-angle.svg"
 import rightAnglePurple from "@/assets/icons/right-angle-puple.svg";
+import acuteAngleArrow from "@/assets/icons/acute-angle-arrow.svg";
+import acuteAngleArrowPurple from "@/assets/icons/acute-angle-arrow-purple.svg";
+import results1 from "@/assets/results/case1.jpg";
+
+import team1 from "@/assets/team/1.jpg";
+import team2 from "@/assets/team/2.jpg";
+import team3 from "@/assets/team/3.jpg";
+import team4 from "@/assets/team/4.jpg";
 
 export default function Home() {
   return (
-    <div className="bg-[#000] text-[#fff] min-h-[100vh] font-['almarai'] font-[400] overflow-hidden relative">
+    <div className="bg-[#000] text-[#fff] min-h-[100vh] font-['almarai'] font-[400] leading-[110%] overflow-hidden relative">
       <div>
         <header className="p-[42px_0] relative z-[1]">
           <div className="max-w-[1400px] mx-auto my-0 relative flex justify-between items-center">
@@ -158,9 +167,9 @@ export default function Home() {
                           alt="arrow"
                         />
                       </div>
-                      <h3 className="ml-[22px] font-[700] text-[25px] uppercase leading-[100%]">
+                      <h4 className="ml-[22px] font-[700] text-[25px] uppercase leading-[100%]">
                         Data-Driven <br /> Strategies
-                      </h3>
+                      </h4>
                     </div>
                     <p className="text-[#A0A0A0] max-w-[293px]">
                       We combine creativity with analytics to ensure measurable
@@ -198,9 +207,9 @@ export default function Home() {
                         alt="arrow"
                       />
                     </div>
-                    <h3 className="font-[700] text-[25px] uppercase leading-[100%]">
+                    <h4 className="font-[700] text-[25px] uppercase leading-[100%]">
                       Submit a <br /> Request
-                    </h3>
+                    </h4>
                   </div>
                   <div className="relative top-[-30px] flex">
                     <p className="text-[#A0A0A0] max-w-[260px] absolute bottom-[25px] left-[-280px] z-1">
@@ -208,9 +217,9 @@ export default function Home() {
                       campaigns tailored to your audience.
                     </p>
                     <div className="w-[359px] h-[359px] flex items-center relative backdrop-blur-[10px] bg-[linear-gradient(to_right_bottom,#3b118595,#43139695,#4a15a795,#5217b995,#5a19cb95)] rounded-[15px]">
-                      <h3 className="ml-[22px] font-[700] text-[25px] uppercase leading-[100%]">
+                      <h4 className="ml-[22px] font-[700] text-[25px] uppercase leading-[100%]">
                         Creative <br /> Campaigns That <br /> Inspire
-                      </h3>
+                      </h4>
                     </div>
                   </div>
                   <div className="relative top-[75px] flex flex-col gap-[20px] items-end">
@@ -245,9 +254,9 @@ export default function Home() {
                           alt="arrow"
                         />
                       </div>
-                      <h3 className="ml-[22px] font-[700] text-[25px] uppercase leading-[100%]">
+                      <h4 className="ml-[22px] font-[700] text-[25px] uppercase leading-[100%]">
                         Seamless <br /> Execution
-                      </h3>
+                      </h4>
                     </div>
                     <p className="text-[#A0A0A0] max-w-[260px] text-right">
                       From concept to delivery, we handle every detail so you
@@ -260,7 +269,7 @@ export default function Home() {
           </section>
           <section className="p-[105px_0]">
             <div className="max-w-[1400px] mx-auto my-0 relative flex flex-col justify-between">
-              <div className="flex gap-[20px] mb-[120px]">
+              <div className="flex gap-[20px] mb-[200px]">
                 <h2 className="font-['aurora'] text-[110px] uppercase leading-[100%] whitespace-nowrap">
                   <span className="text-[#6448FF]">Real </span>Results,
                 </h2>
@@ -281,6 +290,368 @@ export default function Home() {
                       alt="blur"
                     />
                   </div>
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <div className="flex flex-col gap-[37px]">
+                  <div
+                    className="w-[62px] h-[62px] flex justify-center items-center cursor-pointer
+                    rounded-[100%] border-[1px] border-[#6448FF] text-[#6448FF] font-['aurora'] font-[700] text-[30px]"
+                  >
+                    1
+                  </div>
+                  <div
+                    className="w-[62px] h-[62px] flex justify-center items-center cursor-pointer
+                    rounded-[100%] border-[1px] border-[#6448FF] text-[#6448FF] font-['aurora'] font-[700] text-[30px]"
+                  >
+                    2
+                  </div>
+                  <div
+                    className="w-[62px] h-[62px] flex justify-center items-center cursor-pointer
+                    rounded-[100%] border-[1px] border-[#6448FF] text-[#6448FF] font-['aurora'] font-[700] text-[30px]"
+                  >
+                    3
+                  </div>
+                </div>
+                <div className="flex flex-col gap-[160px]">
+                  <div className="flex justify-between">
+                    <div>
+                      <h3 className="font-['aurora'] text-[45px] font-[700] uppercase max-w-[646px] leading-[115%] mb-[40px]">
+                        Revolutionizing Social Engagement for{" "}
+                        <span className="text-[#6448FF]">XFashion 1</span>
+                      </h3>
+                      <div className="flex flex-col gap-[55px] mb-[55px]">
+                        <div className="flex gap-[14px] max-w-[395px] items-start">
+                          <Image
+                            src={rightAngleArrow}
+                            width={14}
+                            height={14}
+                            className=""
+                            alt="arrow"
+                          />
+                          <p className="text-[#A0A0A0]">
+                            XFashion struggled to connect with their audience on
+                            social media and needed a strategy to boost
+                            engagement.
+                          </p>
+                        </div>
+                        <div className="flex gap-[14px] max-w-[395px] items-start ml-[30px]">
+                          <Image
+                            src={rightAngleArrow}
+                            width={14}
+                            height={14}
+                            className=""
+                            alt="arrow"
+                          />
+                          <p className="text-[#A0A0A0]">
+                            We developed a content calendar featuring
+                            interactive posts, influencer collaborations, and
+                            targeted ad campaigns.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-[4px]">
+                        <h6 className="uppercase text-[#6448FF] font-['aurora'] font-[700] text-[20px]">
+                          Result
+                        </h6>
+                        <p className="max-w-[395px] leading-[110%]">
+                          Social media engagement increased by 150%, with a 20%
+                          rise in follower count and higher customer interaction
+                          rates.
+                        </p>
+                      </div>
+                    </div>
+                    <div>
+                      <Image
+                        src={results1}
+                        width={405}
+                        height={512}
+                        className=""
+                        alt="Xfashion"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-between">
+                    <div>
+                      <h3 className="font-['aurora'] text-[45px] font-[700] uppercase max-w-[646px] leading-[115%] mb-[40px]">
+                        Revolutionizing Social Engagement for{" "}
+                        <span className="text-[#6448FF]">XFashion 2</span>
+                      </h3>
+                      <div className="flex flex-col gap-[55px] mb-[55px]">
+                        <div className="flex gap-[14px] max-w-[395px] items-start">
+                          <Image
+                            src={rightAngleArrow}
+                            width={14}
+                            height={14}
+                            className=""
+                            alt="arrow"
+                          />
+                          <p className="text-[#A0A0A0]">
+                            XFashion struggled to connect with their audience on
+                            social media and needed a strategy to boost
+                            engagement.
+                          </p>
+                        </div>
+                        <div className="flex gap-[14px] max-w-[395px] items-start ml-[30px]">
+                          <Image
+                            src={rightAngleArrow}
+                            width={14}
+                            height={14}
+                            className=""
+                            alt="arrow"
+                          />
+                          <p className="text-[#A0A0A0]">
+                            We developed a content calendar featuring
+                            interactive posts, influencer collaborations, and
+                            targeted ad campaigns.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-[4px]">
+                        <h6 className="uppercase text-[#6448FF] font-['aurora'] font-[700] text-[20px]">
+                          Result
+                        </h6>
+                        <p className="max-w-[395px] leading-[110%]">
+                          Social media engagement increased by 150%, with a 20%
+                          rise in follower count and higher customer interaction
+                          rates.
+                        </p>
+                      </div>
+                    </div>
+                    <div>
+                      <Image
+                        src={results1}
+                        width={405}
+                        height={512}
+                        className=""
+                        alt="Xfashion"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-between">
+                    <div>
+                      <h3 className="font-['aurora'] text-[45px] font-[700] uppercase max-w-[646px] leading-[115%] mb-[40px]">
+                        Revolutionizing Social Engagement for{" "}
+                        <span className="text-[#6448FF]">XFashion 3</span>
+                      </h3>
+                      <div className="flex flex-col gap-[55px] mb-[55px]">
+                        <div className="flex gap-[14px] max-w-[395px] items-start">
+                          <Image
+                            src={rightAngleArrow}
+                            width={14}
+                            height={14}
+                            className=""
+                            alt="arrow"
+                          />
+                          <p className="text-[#A0A0A0]">
+                            XFashion struggled to connect with their audience on
+                            social media and needed a strategy to boost
+                            engagement.
+                          </p>
+                        </div>
+                        <div className="flex gap-[14px] max-w-[395px] items-start ml-[30px]">
+                          <Image
+                            src={rightAngleArrow}
+                            width={14}
+                            height={14}
+                            className=""
+                            alt="arrow"
+                          />
+                          <p className="text-[#A0A0A0]">
+                            We developed a content calendar featuring
+                            interactive posts, influencer collaborations, and
+                            targeted ad campaigns.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-[4px]">
+                        <h6 className="uppercase text-[#6448FF] font-['aurora'] font-[700] text-[20px]">
+                          Result
+                        </h6>
+                        <p className="max-w-[395px] leading-[110%]">
+                          Social media engagement increased by 150%, with a 20%
+                          rise in follower count and higher customer interaction
+                          rates.
+                        </p>
+                      </div>
+                    </div>
+                    <div>
+                      <Image
+                        src={results1}
+                        width={405}
+                        height={512}
+                        className=""
+                        alt="Xfashion"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className="p-[105px_0]">
+            <div className="max-w-[1400px] mx-auto my-0 relative flex flex-col justify-between">
+              <h2 className="font-['aurora'] text-[50px] font-[700] uppercase leading-[110%] mb-[90px]">
+                Stories of <span className="text-[#6448FF]">success</span>,{" "}
+                <span className="text-[#6448FF]">satisfaction</span>, and
+                <span className="text-[#6448FF]"> trust</span> from our valued
+                partners.
+              </h2>
+              <div className="flex justify-between">
+                <p className="max-w-[137px] text-[#A0A0A0] lowercase">
+                  Why Our Clients Love Working With Us
+                </p>
+                <div className="grid grid-cols-2 grid-rows-2 max-w-[1045px] min-h-[520px]">
+                  <div className="p-[29px] flex gap-[28px] border-x-[1px] border-y-[1px] border-[#292929]">
+                    <span className="text-[80px] font-['aurora'] font-[700] leading-[110%]">
+                      200+
+                    </span>
+                    <p className="max-w-[150px] pt-[24px]">
+                      successful projects completed
+                    </p>
+                  </div>
+                  <div className="p-[29px] flex gap-[28px] border-y-[1px] border-r-[1px] border-[#292929]">
+                    <span className="text-[80px] font-['aurora'] font-[700] leading-[110%]">
+                      98%
+                    </span>
+                    <p className="max-w-[150px] pt-[24px]">
+                      positive feedback on your services
+                    </p>
+                  </div>
+                  <div className="p-[29px] flex gap-[28px] border-x-[1px] border-b-[1px] border-[#292929]">
+                    <span className="text-[80px] font-['aurora'] font-[700] leading-[110%]">
+                      5
+                    </span>
+                    <p className="max-w-[150px] pt-[24px]">
+                      stars on major review platforms
+                    </p>
+                  </div>
+                  <div className="p-[29px] flex flex-col gap-[28px] border-x-[1px] border-b-[1px] border-[#292929]">
+                    <span className="text-[80px] text-[#6448FF] uppercase font-['aurora'] font-[700] leading-[110%]">
+                      Your result
+                    </span>
+                    <div className="flex justify-between items-center">
+                      <p className="max-w-[120px]">Might be the next</p>
+                      <div className="flex items-center gap-[6px]">
+                        <Link className="underline" href={"/"}>
+                          Start the project
+                        </Link>
+                        <Image
+                          src={rightAngleArrow}
+                          width={10}
+                          height={10}
+                          className=""
+                          alt="arrow"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className="p-[105px_0]">
+            <div className="max-w-[1400px] mx-auto my-0 relative">
+              <div className="flex justify-between items-end mb-[55px]">
+                <div>
+                  <h2 className="font-['aurora'] text-[80px] uppercase leading-[100%] mb-[10px]">
+                    Team & leadership
+                  </h2>
+                  <p className="text-[#A0A0A0] max-w-[530px]">
+                    We’re specialists from all across the world driven by bold
+                    ideas and diverse perspectives in one place for you
+                  </p>
+                </div>
+                <div className="flex gap-[18px]">
+                  <div
+                    className="w-[62px] h-[62px] flex justify-center 
+                  items-center rounded-[100%] border-[1px] border-[#A0A0A0] cursor-pointer"
+                  >
+                    <Image
+                      src={acuteAngleArrow}
+                      width={14}
+                      height={14}
+                      className=""
+                      alt="<"
+                    />
+                  </div>
+                  <div
+                    className="w-[62px] h-[62px] flex justify-center 
+                  items-center rounded-[100%] border-[1px] border-[#A0A0A0] cursor-pointer"
+                  >
+                    <Image
+                      src={acuteAngleArrowPurple}
+                      width={14}
+                      height={14}
+                      className="rotate-180"
+                      alt=">"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-4 grid-rows-1 gap-[12px] mb-[90px]">
+                <div>
+                  <Image
+                    src={team1}
+                    width={350}
+                    height={434}
+                    className="mb-[18px]"
+                    alt="Isabella Lee"
+                  />
+                  <div className="flex flex-col gap-[3px]">
+                    <h6 className="text-[18px]">Isabella Lee</h6>
+                    <p className="text-[#A0A0A0]">Marketing Strategist</p>
+                  </div>
+                </div>
+                <div>
+                  <Image
+                    src={team2}
+                    width={350}
+                    height={434}
+                    className="mb-[18px]"
+                    alt="Sophia Carter"
+                  />
+                  <div className="flex flex-col gap-[3px]">
+                    <h6 className="text-[18px]">Sophia Carter</h6>
+                    <p className="text-[#A0A0A0]">Content Specialist</p>
+                  </div>
+                </div>
+                <div>
+                  <Image
+                    src={team3}
+                    width={350}
+                    height={434}
+                    className="mb-[18px]"
+                    alt="Ethan Miller"
+                  />
+                  <div className="flex flex-col gap-[3px]">
+                    <h6 className="text-[18px]">Ethan Miller</h6>
+                    <p className="text-[#A0A0A0]">Creative Director</p>
+                  </div>
+                </div>
+                <div>
+                  <Image
+                    src={team4}
+                    width={350}
+                    height={434}
+                    className="mb-[18px]"
+                    alt="James Thompson"
+                  />
+                  <div className="flex flex-col gap-[3px]">
+                    <h6 className="text-[18px]">James Thompson</h6>
+                    <p className="text-[#A0A0A0]">Data Analyst</p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-between items-end">
+                <p className="text-[#A0A0A0] max-w-[270px]">
+                  For each project, we form a team of a project manager,
+                  marketing specialist, and a designer. You get a marketing
+                  department for the price of one employee in-house.
+                </p>
+                <div className="flex items-center gap-[250px]">
+                  <Link className="uppercase tracking-[5px]" href={"/"}>[Instagram]</Link>
+                  <Link className="uppercase tracking-[5px]" href={"/"}>[All team]</Link>
                 </div>
               </div>
             </div>
