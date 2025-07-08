@@ -52,3 +52,32 @@ body {
   font-weight: 300;
   font-display: swap;
 }
+
+
+.anim-circle-btn:before{
+  content: "";
+  width: 62px;
+  height: 62px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #6448FF;
+  border-top-right-radius: 100%;
+  border-bottom-right-radius: 100%;
+  transition: .2s ease;
+}
+
+.anim-circle-btn:hover:before{
+  width: 100%;
+  border-top-right-radius: 0%;
+  border-bottom-right-radius: 0%;
+}
+
+.results-nav-item{
+  transition: .2s ease;
+}
+
+.results-nav-item:hover{
+  color: #fff;
+  border-color: white;
+}
