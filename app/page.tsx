@@ -1,7 +1,18 @@
 "use client"
 
+import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import type SwiperCore from "swiper";
+
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { useGSAP } from "@gsap/react";
+
+import "swiper/css";
+import "swiper/css/navigation";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -16,7 +27,7 @@ import resultsTitleBlur from "@/assets/results/blur.png";
 import rightAngle from "@/assets/icons/right-angle.svg";
 import rightAnglePurple from "@/assets/icons/right-angle-puple.svg";
 import acuteAngleArrow from "@/assets/icons/acute-angle-arrow.svg";
-import acuteAngleArrowPurple from "@/assets/icons/acute-angle-arrow-purple.svg";
+// import acuteAngleArrowPurple from "@/assets/icons/acute-angle-arrow-purple.svg";
 import results1 from "@/assets/results/case1.jpg";
 import img from "@/assets/contact/did.png";
 
@@ -27,7 +38,16 @@ import team4 from "@/assets/team/4.jpg";
 
 
 export default function Home() {
+  const swiperRef = useRef<SwiperCore | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeCase, setActiveCase] = useState(0);
+  const sectionRef = useRef();
+  const casesRef = useRef([]);
+  const containerRef = useRef();
+
+  gsap.registerPlugin(useGSAP);
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollToPlugin);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,6 +62,55 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useGSAP(
+    () => {
+      // Pin the section while scrolling through cases
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: () => `+=${containerRef.current.scrollHeight}`,
+        pin: true,
+        pinSpacing: false,
+        scrub: 1,
+      });
+
+      // Create ScrollTriggers for each case
+      gsap.utils.toArray(".case-result").forEach((caseEl, index) => {
+        ScrollTrigger.create({
+          trigger: caseEl,
+          start: "top center",
+          end: "bottom center",
+          onEnter: () => setActiveCase(index),
+          onEnterBack: () => setActiveCase(index),
+          markers: true, // Remove in production
+        });
+
+        // Animation for each case
+        gsap.from(caseEl, {
+          opacity: 0,
+          y: 50,
+          duration: 0.8,
+          scrollTrigger: {
+            trigger: caseEl,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        });
+      });
+    },
+    { scope: sectionRef }
+  ); // scope ensures all selectors are within sectionRef
+
+  const scrollToCase = (index) => {
+    const caseElement = casesRef.current[index];
+    if (caseElement) {
+      gsap.to(containerRef.current, {
+        scrollTo: { y: caseElement.offsetTop - 100 },
+        duration: 1.2,
+        ease: "power2.inOut",
+      });
+    }
+  };
   return (
     <>
       <div className="bg-[#000] text-[#fff] min-h-[100vh] font-['almarai'] font-[400] leading-[110%] overflow-hidden relative">
@@ -80,7 +149,7 @@ export default function Home() {
             <section className="p-[150px_0_105px]">
               <div className="max-w-[1400px] mx-auto my-0 relative flex flex-col justify-between">
                 <div className="flex justify-between">
-                  <h1 className="font-['aurora'] text-[250px] uppercase leading-[100%]">
+                  <h1 className="intro-h1 font-['aurora'] text-[250px] uppercase leading-[100%]">
                     Brand
                   </h1>
                   <div className="flex flex-col justify-around text-[#A0A0A0] text-[16px]">
@@ -302,7 +371,7 @@ export default function Home() {
                 </div>
               </div>
             </section>
-            <section className="p-[105px_0]">
+            <section className="p-[105px_0]" ref={sectionRef}>
               <div className="max-w-[1400px] mx-auto my-0 relative flex flex-col justify-between">
                 <div className="flex gap-[20px] mb-[200px]">
                   <h2 className="font-['aurora'] text-[110px] uppercase leading-[100%] whitespace-nowrap">
@@ -330,7 +399,7 @@ export default function Home() {
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex flex-col gap-[37px]">
-                    <div
+                    {/* <div
                       className="results-nav-item w-[62px] h-[62px] flex justify-center items-center cursor-pointer
                     rounded-[100%] border-[1px] border-[#6448FF] text-[#6448FF] font-['aurora'] font-[700] text-[30px]"
                     >
@@ -347,10 +416,31 @@ export default function Home() {
                     rounded-[100%] border-[1px] border-[#6448FF] text-[#6448FF] font-['aurora'] font-[700] text-[30px]"
                     >
                       3
-                    </div>
+                    </div> */}
+                    {[0, 1, 2].map((index) => (
+                      <div
+                        key={index}
+                        className={`results-nav-item w-[62px] h-[62px] flex justify-center items-center cursor-pointer
+                  rounded-[100%] border-[1px] ${
+                    activeCase === index
+                      ? "bg-[#6448FF] text-white"
+                      : "border-[#6448FF] text-[#6448FF]"
+                  } 
+                  font-['aurora'] font-[700] text-[30px] transition-colors duration-300`}
+                        onClick={() => scrollToCase(index)}
+                      >
+                        {index + 1}
+                      </div>
+                    ))}
                   </div>
-                  <div className="flex flex-col gap-[160px]">
-                    <div className="flex justify-between">
+                  <div
+                    className="flex flex-col gap-[160px] overflow-y-auto snap-y snap-mandatory"
+                    ref={containerRef}
+                  >
+                    <div
+                      className="case-result flex justify-between snap-start"
+                      ref={(el) => (casesRef.current[0] = el)}
+                    >
                       <div>
                         <h3 className="font-['aurora'] text-[45px] font-[700] uppercase max-w-[646px] leading-[115%] mb-[40px]">
                           Revolutionizing Social Engagement for{" "}
@@ -407,7 +497,10 @@ export default function Home() {
                         />
                       </div>
                     </div>
-                    <div className="flex justify-between">
+                    <div
+                      className="case-result flex justify-between snap-start"
+                      ref={(el) => (casesRef.current[0] = el)}
+                    >
                       <div>
                         <h3 className="font-['aurora'] text-[45px] font-[700] uppercase max-w-[646px] leading-[115%] mb-[40px]">
                           Revolutionizing Social Engagement for{" "}
@@ -464,7 +557,10 @@ export default function Home() {
                         />
                       </div>
                     </div>
-                    <div className="flex justify-between">
+                    <div
+                      className="case-result flex justify-between snap-start"
+                      ref={(el) => (casesRef.current[0] = el)}
+                    >
                       <div>
                         <h3 className="font-['aurora'] text-[45px] font-[700] uppercase max-w-[646px] leading-[115%] mb-[40px]">
                           Revolutionizing Social Engagement for{" "}
@@ -599,9 +695,11 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="flex gap-[18px]">
-                    <div
-                      className="w-[62px] h-[62px] flex justify-center 
-                  items-center rounded-[100%] border-[1px] border-[#A0A0A0] cursor-pointer"
+                    <button
+                      onClick={() => swiperRef.current?.slidePrev()}
+                      className="team-nav-btn w-[62px] h-[62px] flex justify-center transition-[0.2s] duration-[ease]
+                          items-center rounded-[100%] border-[1px] border-[#A0A0A0] cursor-pointer"
+                      aria-label="Previous slide"
                     >
                       <Image
                         src={acuteAngleArrow}
@@ -610,134 +708,137 @@ export default function Home() {
                         className=""
                         alt="<"
                       />
-                    </div>
-                    <div
-                      className="w-[62px] h-[62px] flex justify-center 
-                  items-center rounded-[100%] border-[1px] border-[#A0A0A0] cursor-pointer"
+                    </button>
+                    <button
+                      onClick={() => swiperRef.current?.slideNext()}
+                      className="team-nav-btn w-[62px] h-[62px] flex justify-center transition-[0.2s] duration-[ease]
+                        items-center rounded-[100%] border-[1px] border-[#A0A0A0] cursor-pointer"
+                      aria-label="Next slide"
                     >
                       <Image
-                        src={acuteAngleArrowPurple}
+                        src={acuteAngleArrow}
                         width={14}
                         height={14}
                         className="rotate-180"
                         alt=">"
                       />
-                    </div>
+                    </button>
                   </div>
                 </div>
                 <Swiper
-                  className="flex justify-between gap-[12px] mb-[90px]"
+                  modules={[Navigation]}
+                  className="flex flex-row justify-between mb-[90px]"
+                  navigation
                   spaceBetween={12}
-                  slidesPerView={1}
+                  slidesPerView={4}
+                  onSwiper={(swiper) => {
+                    swiperRef.current = swiper;
+                  }}
                 >
-                  <SwiperSlide className="flex justify-between gap-[12px]">
-                    <div>
-                      <Image
-                        src={team1}
-                        width={350}
-                        height={434}
-                        className="mb-[18px]"
-                        alt="Isabella Lee"
-                      />
-                      <div className="flex flex-col gap-[3px]">
-                        <h6 className="text-[18px]">Isabella Lee</h6>
-                        <p className="text-[#A0A0A0]">Marketing Strategist</p>
-                      </div>
-                    </div>
-                    <div>
-                      <Image
-                        src={team2}
-                        width={350}
-                        height={434}
-                        className="mb-[18px]"
-                        alt="Sophia Carter"
-                      />
-                      <div className="flex flex-col gap-[3px]">
-                        <h6 className="text-[18px]">Sophia Carter</h6>
-                        <p className="text-[#A0A0A0]">Content Specialist</p>
-                      </div>
-                    </div>
-                    <div>
-                      <Image
-                        src={team3}
-                        width={350}
-                        height={434}
-                        className="mb-[18px]"
-                        alt="Ethan Miller"
-                      />
-                      <div className="flex flex-col gap-[3px]">
-                        <h6 className="text-[18px]">Ethan Miller</h6>
-                        <p className="text-[#A0A0A0]">Creative Director</p>
-                      </div>
-                    </div>
-                    <div>
-                      <Image
-                        src={team4}
-                        width={350}
-                        height={434}
-                        className="mb-[18px]"
-                        alt="James Thompson"
-                      />
-                      <div className="flex flex-col gap-[3px]">
-                        <h6 className="text-[18px]">James Thompson</h6>
-                        <p className="text-[#A0A0A0]">Data Analyst</p>
-                      </div>
+                  <SwiperSlide>
+                    <Image
+                      src={team1}
+                      width={350}
+                      height={434}
+                      className="mb-[18px]"
+                      alt="Isabella Lee"
+                    />
+                    <div className="flex flex-col gap-[3px]">
+                      <h6 className="text-[18px]">Isabella Lee</h6>
+                      <p className="text-[#A0A0A0]">Marketing Strategist</p>
                     </div>
                   </SwiperSlide>
-                  {/* <SwiperSlide className="flex justify-between gap-[12px]">
-                    <div>
-                      <Image
-                        src={team1}
-                        width={350}
-                        height={434}
-                        className="mb-[18px]"
-                        alt="Isabella Lee"
-                      />
-                      <div className="flex flex-col gap-[3px]">
-                        <h6 className="text-[18px]">Isabella Lee</h6>
-                        <p className="text-[#A0A0A0]">Marketing Strategist</p>
-                      </div>
+                  <SwiperSlide>
+                    <Image
+                      src={team2}
+                      width={350}
+                      height={434}
+                      className="mb-[18px]"
+                      alt="Sophia Carter"
+                    />
+                    <div className="flex flex-col gap-[3px]">
+                      <h6 className="text-[18px]">Sophia Carter</h6>
+                      <p className="text-[#A0A0A0]">Content Specialist</p>
                     </div>
-                    <div>
-                      <Image
-                        src={team2}
-                        width={350}
-                        height={434}
-                        className="mb-[18px]"
-                        alt="Sophia Carter"
-                      />
-                      <div className="flex flex-col gap-[3px]">
-                        <h6 className="text-[18px]">Sophia Carter</h6>
-                        <p className="text-[#A0A0A0]">Content Specialist</p>
-                      </div>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <Image
+                      src={team3}
+                      width={350}
+                      height={434}
+                      className="mb-[18px]"
+                      alt="Ethan Miller"
+                    />
+                    <div className="flex flex-col gap-[3px]">
+                      <h6 className="text-[18px]">Ethan Miller</h6>
+                      <p className="text-[#A0A0A0]">Creative Director</p>
                     </div>
-                    <div>
-                      <Image
-                        src={team3}
-                        width={350}
-                        height={434}
-                        className="mb-[18px]"
-                        alt="Ethan Miller"
-                      />
-                      <div className="flex flex-col gap-[3px]">
-                        <h6 className="text-[18px]">Ethan Miller</h6>
-                        <p className="text-[#A0A0A0]">Creative Director</p>
-                      </div>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <Image
+                      src={team4}
+                      width={350}
+                      height={434}
+                      className="mb-[18px]"
+                      alt="James Thompson"
+                    />
+                    <div className="flex flex-col gap-[3px]">
+                      <h6 className="text-[18px]">James Thompson</h6>
+                      <p className="text-[#A0A0A0]">Data Analyst</p>
                     </div>
-                    <div>
-                      <Image
-                        src={team4}
-                        width={350}
-                        height={434}
-                        className="mb-[18px]"
-                        alt="James Thompson"
-                      />
-                      <div className="flex flex-col gap-[3px]">
-                        <h6 className="text-[18px]">James Thompson</h6>
-                        <p className="text-[#A0A0A0]">Data Analyst</p>
-                      </div>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <Image
+                      src={team1}
+                      width={350}
+                      height={434}
+                      className="mb-[18px]"
+                      alt="Isabella Lee"
+                    />
+                    <div className="flex flex-col gap-[3px]">
+                      <h6 className="text-[18px]">Isabella Lee</h6>
+                      <p className="text-[#A0A0A0]">Marketing Strategist</p>
                     </div>
-                  </SwiperSlide> */}
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <Image
+                      src={team2}
+                      width={350}
+                      height={434}
+                      className="mb-[18px]"
+                      alt="Sophia Carter"
+                    />
+                    <div className="flex flex-col gap-[3px]">
+                      <h6 className="text-[18px]">Sophia Carter</h6>
+                      <p className="text-[#A0A0A0]">Content Specialist</p>
+                    </div>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <Image
+                      src={team3}
+                      width={350}
+                      height={434}
+                      className="mb-[18px]"
+                      alt="Ethan Miller"
+                    />
+                    <div className="flex flex-col gap-[3px]">
+                      <h6 className="text-[18px]">Ethan Miller</h6>
+                      <p className="text-[#A0A0A0]">Creative Director</p>
+                    </div>
+                  </SwiperSlide>
+                  <SwiperSlide>
+                    <Image
+                      src={team4}
+                      width={350}
+                      height={434}
+                      className="mb-[18px]"
+                      alt="James Thompson"
+                    />
+                    <div className="flex flex-col gap-[3px]">
+                      <h6 className="text-[18px]">James Thompson</h6>
+                      <p className="text-[#A0A0A0]">Data Analyst</p>
+                    </div>
+                  </SwiperSlide>
                 </Swiper>
                 <div className="flex justify-between items-end">
                   <p className="text-[#A0A0A0] max-w-[270px]">

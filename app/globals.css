@@ -53,6 +53,11 @@ body {
   font-display: swap;
 }
 
+.swiper-button-next,
+.swiper-button-prev {
+  display: none !important;
+}
+
 
 .anim-circle-btn:before{
   content: "";
@@ -80,4 +85,9 @@ body {
 .results-nav-item:hover{
   color: #fff;
   border-color: white;
+}
+
+.team-nav-btn:hover{
+  border-color: #6448FF;
+  background-color: #6448FF;
 }
